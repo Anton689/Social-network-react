@@ -3,6 +3,10 @@
     background-color: burlywood;
 }
 
-.nav .item {
+.item a {
     color: white;
+}
+
+.item .active {
+    color: gold;
 }

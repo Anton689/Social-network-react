@@ -7,9 +7,11 @@ export const MyPosts = () => {
     return (
         <div className={s.content}>
             <div>
-                My Posts
+                <h3 className={s.postsPadding}>My Posts</h3>
                 <div>
-                    <textarea></textarea>
+                    <div>
+                        <textarea></textarea>
+                    </div>
                     <button>Add post</button>
                     <button>Remove</button>
                 </div>
