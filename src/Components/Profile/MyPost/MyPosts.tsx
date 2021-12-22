@@ -4,6 +4,18 @@ import {Posts} from './Posts/Posts';
 
 
 export const MyPosts = () => {
+
+    type postsDataType = {
+        id:number;
+        message: string;
+        likeCount: number;
+    }
+
+    let postsData: Array<postsDataType> = [
+        {id: 1, message: 'Hi, how are you?', likeCount: 15},
+        {id: 2, message: 'It\'s my first post', likeCount: 20},
+    ]
+
     return (
         <div className={s.content}>
             <div>
@@ -16,8 +28,8 @@ export const MyPosts = () => {
                     <button>Remove</button>
                 </div>
                 <div className={s.posts}>
-                    <Posts message={'Hi, how are you?'} likeCount={15}/>
-                    <Posts message={'It\'s my first post'} likeCount={20}/>
+                    <Posts message={postsData[0].message} likeCount={postsData[0].likeCount}/>
+                    <Posts message={postsData[1].message} likeCount={postsData[1].likeCount}/>
                 </div>
             </div>
         </div>
