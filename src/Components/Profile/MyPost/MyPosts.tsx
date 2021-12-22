@@ -11,10 +11,11 @@ export const MyPosts = () => {
         likeCount: number;
     }
 
-    let postsData: Array<postsDataType> = [
+    let posts: Array<postsDataType> = [
         {id: 1, message: 'Hi, how are you?', likeCount: 15},
         {id: 2, message: 'It\'s my first post', likeCount: 20},
     ]
+    let postsElements = posts.map(posts => <Posts message={posts.message} likeCount={posts.likeCount}/>)
 
     return (
         <div className={s.content}>
@@ -28,8 +29,7 @@ export const MyPosts = () => {
                     <button>Remove</button>
                 </div>
                 <div className={s.posts}>
-                    <Posts message={postsData[0].message} likeCount={postsData[0].likeCount}/>
-                    <Posts message={postsData[1].message} likeCount={postsData[1].likeCount}/>
+                    {postsElements}
                 </div>
             </div>
         </div>
