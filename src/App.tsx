@@ -9,8 +9,25 @@ import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
 
+export type DataDialogsType = {
+    id: number;
+    name?: string;
+    message?: string;
+}
+export type postsDataType = {
+    id:number;
+    message: string;
+    likeCount: number;
+}
 
-const App = () => {
+export type appPropsType = {
+    posts: Array<postsDataType>;
+    message: Array<DataDialogsType>;
+    dialogs: Array<DataDialogsType>;
+}
+
+const App = (props:appPropsType) => {
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -18,8 +35,8 @@ const App = () => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<Dialogs/>}/>
-                        <Route path="/profile/*" element={<Profile/>}/>
+                        <Route path="/dialogs/*" element={<Dialogs message={props.message} dialogs={props.dialogs}/>}/>
+                        <Route path="/profile/*" element={<Profile postsData={props.posts}/>}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>
