@@ -3,31 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App, {DataDialogsType, postsDataType} from './App';
 import reportWebVitals from './reportWebVitals';
+import state from './redux/state';
 
-let posts: Array<postsDataType> = [
-    {id: 1, message: 'Hi, how are you?', likeCount: 15},
-    {id: 2, message: 'It\'s my first post', likeCount: 20},
-]
-let dialogs: Array<DataDialogsType> = [{id: 1, name: 'Anton'},
-    {id: 2, name: 'Bob'},
-    {id: 3, name: 'C'},
-    {id: 4, name: 'D'},
-    {id: 5, name: 'E'},
-    {id: 6, name: 'G'}
-]
-
-let messages: Array<DataDialogsType> = [
-    {id: 1, message: 'Privet'},
-    {id: 2, message: 'Hi'},
-    {id: 3, message: 'How is your it-kamasutra?'},
-    {id: 4, message: 'Hey'},
-    {id: 5, message: 'E'},
-    {id: 6, message: 'G'}
-];
 
 ReactDOM.render(
   <React.StrictMode>
-    <App posts={posts} message={messages} dialogs={dialogs}/>
+    <App appState={state}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
