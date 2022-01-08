@@ -26,6 +26,7 @@ export type appPropsType = {
     // message: Array<DataDialogsType>;
     // dialogs: Array<DataDialogsType>;
     appState: stateType;
+    addPost: (postMessage: string)=> void;
 }
 
 const App = (props:appPropsType) => {
@@ -38,7 +39,7 @@ const App = (props:appPropsType) => {
                 <div className="app-wrapper-content">
                     <Routes>
                         <Route path="/dialogs/*" element={<Dialogs message={props.appState.messagePage.message} dialogs={props.appState.profile.dialogs}/>}/>
-                        <Route path="/profile/*" element={<Profile postsData={props.appState.profile.posts}/>}/>
+                        <Route path="/profile/*" element={<Profile postsData={props.appState.profile.posts} addPost={props.addPost}/>}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>

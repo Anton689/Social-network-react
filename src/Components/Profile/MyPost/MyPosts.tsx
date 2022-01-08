@@ -6,11 +6,19 @@ import {postsDataType} from '../../../App';
 
 type postsPropsType = {
     postsName: Array<postsDataType>;
+    addPost: (postMessage:string)=> void;
 }
 
 export const MyPosts = (props: postsPropsType) => {
 
     //let postsElements = props.postsName.map(posts => <Posts message={posts.message} likeCount={posts.likeCount}/>)
+
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    let addPost = () => {
+        props.addPost(newPostElement.current ? newPostElement.current.value : '');
+
+    }
 
     return (
         <div className={s.content}>
@@ -18,9 +26,9 @@ export const MyPosts = (props: postsPropsType) => {
                 <h3 className={s.postsPadding}>My Posts</h3>
                 <div>
                     <div>
-                        <textarea></textarea>
+                        <textarea ref={newPostElement}></textarea>
                     </div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                     <button>Remove</button>
                 </div>
                 <div className={s.posts}>

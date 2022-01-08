@@ -7,6 +7,7 @@ import {postsDataType} from './../../App'
 
 export type profilePropsType = {
     postsData: Array<postsDataType>;
+    addPost: (postMessage:string)=> void;
 }
 
 export const Profile = (props: profilePropsType) => {
@@ -14,7 +15,7 @@ export const Profile = (props: profilePropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postsName={props.postsData}/>
+            <MyPosts postsName={props.postsData} addPost={props.addPost}/>
         </div>
     )
 }

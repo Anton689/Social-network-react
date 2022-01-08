@@ -1,3 +1,5 @@
+import React from 'react';
+import {renderEntireTree} from '../render';
 
 export type messagesType = {
     id: number;
@@ -55,6 +57,17 @@ export let state: stateType = {
             {id: 6, message: 'G'}
         ],
     }
+}
+
+
+export const addPost = (postMessage:string)=> {
+    const newPost: postsType ={
+        id: 5,
+        message: postMessage,
+        likeCount: 0,
+    };
+    state.profile.posts.push(newPost);
+    renderEntireTree(state);
 }
 
 
