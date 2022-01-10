@@ -3,17 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App, {DataDialogsType, postsDataType} from './App';
 import reportWebVitals from './reportWebVitals';
-import {addPost, stateType} from './redux/state';
+import {addNewMessage, addPost, changeNewMessageText, changeNewText, stateType} from './redux/state';
 
 
 export const renderEntireTree = (state: stateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App appState={state} addPost={addPost}/>
+            <App changeNewTextCallback={changeNewText}
+                 newPostText={state.profile.newPostText}
+                 appState={state}
+                 addPost={addPost}
+                 addNewMessage={addNewMessage}
+                 changeNewMessageText={changeNewMessageText}/>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

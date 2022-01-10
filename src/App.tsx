@@ -8,7 +8,7 @@ import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
-import {stateType} from './redux/state';
+import {changeNewMessageText, changeNewText, profileType, state, stateType} from './redux/state';
 
 export type DataDialogsType = {
     id: number;
@@ -16,20 +16,24 @@ export type DataDialogsType = {
     message?: string;
 }
 export type postsDataType = {
-    id:number;
+    id: number;
     message: string;
     likeCount: number;
 }
 
 export type appPropsType = {
-    // posts: Array<postsDataType>;
-    // message: Array<DataDialogsType>;
-    // dialogs: Array<DataDialogsType>;
+     // posts?: Array<postsDataType>;
+     // message?: Array<DataDialogsType>;
+     // dialogs?: Array<DataDialogsType>;
     appState: stateType;
-    addPost: (postMessage: string)=> void;
+    addPost: () => void;
+    newPostText: string;
+    changeNewTextCallback: (newText: string) => void;
+    addNewMessage: () => void;
+    changeNewMessageText: (newText:string) => void;
 }
 
-const App = (props:appPropsType) => {
+const App = (props: appPropsType) => {
 
     return (
         <BrowserRouter>
@@ -38,8 +42,15 @@ const App = (props:appPropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<Dialogs message={props.appState.messagePage.message} dialogs={props.appState.profile.dialogs}/>}/>
-                        <Route path="/profile/*" element={<Profile postsData={props.appState.profile.posts} addPost={props.addPost}/>}/>
+                        <Route path="/dialogs/*" element={<Dialogs message={props.appState.messagePage.message}
+                                                                   dialogs={props.appState.profile.dialogs}
+                                                                   addNewMessage={props.addNewMessage}
+                                                                   changeNewMessageText={props.changeNewMessageText}/>}/>
+
+                        <Route path="/profile/*" element={<Profile postsData={props.appState.profile.posts}
+                                                                   addPost={props.addPost}
+                                                                   newPostText={props.appState.profile.newPostText}
+                                                                   changeNewTextCallback={changeNewText}/>}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>
