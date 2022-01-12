@@ -1,5 +1,4 @@
 import React from 'react';
-import {renderEntireTree} from '../render';
 
 export type messagesType = {
     id: number;
@@ -63,10 +62,18 @@ export let state: stateType = {
             {id: 6, message: 'G'}
         ],
 
-    }
+    },
 }
 
 // export const addPost = (postMessage:string)
+
+let renderEntireTree = () => {
+    console.log('State changed');
+}
+
+export const subscribe = (observer:()=> void) => {
+    renderEntireTree = observer;
+}
 
 export const addPost = () => {
     const newPost: postsType = {
@@ -76,12 +83,12 @@ export const addPost = () => {
     };
     state.profile.posts.push(newPost);
     state.profile.newPostText = '';
-    renderEntireTree(state);
+    renderEntireTree();
 }
 
 export const changeNewText = (newText: string) => {
     state.profile.newPostText = newText;
-    renderEntireTree(state);
+    renderEntireTree();
 }
 
 export const addNewMessage = () => {
@@ -91,13 +98,25 @@ export const addNewMessage = () => {
     }
     state.messagePage.message.push(newMessage);
     state.messagePage.newMessageText = '';
-    renderEntireTree(state);
+    renderEntireTree();
 }
 
 export const changeNewMessageText = (newText: string) => {
     state.messagePage.newMessageText = newText;
-    renderEntireTree(state);
+    renderEntireTree();
 }
 
 
 export default state;
+
+// export const renderEntireTree = (state: stateType) => {
+//     ReactDOM.render(
+//         <React.StrictMode>
+//             <App changeNewTextCallback={changeNewText}
+//                  newPostText={state.profile.newPostText}
+//                  appState={state}
+//                  addPost={addPost}
+//                  addNewMessage={addNewMessage}
+//                  changeNewMessageText={changeNewMessageText}/>
+//         </React.StrictMode>,
+//         document.getElementById('root')
