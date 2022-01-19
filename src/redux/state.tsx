@@ -36,87 +36,98 @@ export type stateType = {
 
 }
 
-export let state: stateType = {
-    profile: {
-        posts: [
-            {id: 1, message: 'Hi, how are you?', likeCount: 15},
-            {id: 2, message: 'It\'s my first post', likeCount: 20},
-        ],
-        newPostText: '',
-        dialogs: [{id: 1, name: 'Anton'},
-            {id: 2, name: 'Bob'},
-            {id: 3, name: 'C'},
-            {id: 4, name: 'D'},
-            {id: 5, name: 'E'},
-            {id: 6, name: 'G'}
-        ],
+export type AddPostType = {
+    type: 'ADD-POST'
+
+}
+export type ChangeNewPostTextType = {
+    type: 'CHANGE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionsType = AddPostType | ChangeNewPostTextType;
+
+export type StoreType = {
+    _state: stateType
+    renderEntireTree: () => void
+    subscribe: (observer: () => void) => void
+    //addPost: () => void
+    //changeNewPostText: (newText: string) => void
+    addNewMessage: () => void
+    changeNewMessageText: (newText: string) => void
+    getState: () => stateType
+    dispatch: (action: ActionsType) => void;
+
+}
+
+
+export let store: StoreType = {
+    _state: {
+        profile: {
+            posts: [
+                {id: 1, message: 'Hi, how are you?', likeCount: 15},
+                {id: 2, message: 'It\'s my first post', likeCount: 20},
+            ],
+            newPostText: '',
+            dialogs: [{id: 1, name: 'Anton'},
+                {id: 2, name: 'Bob'},
+                {id: 3, name: 'C'},
+                {id: 4, name: 'D'},
+                {id: 5, name: 'E'},
+                {id: 6, name: 'G'}
+            ],
+        },
+        messagePage: {
+            newMessageText: '',
+            message: [
+                {id: 1, message: 'Privet'},
+                {id: 2, message: 'Hi'},
+                {id: 3, message: 'How is your it-kamasutra?'},
+                {id: 4, message: 'Hey'},
+                {id: 5, message: 'E'},
+                {id: 6, message: 'G'}
+            ],
+
+        },
     },
-    messagePage: {
-        newMessageText: '',
-        message: [
-            {id: 1, message: 'Privet'},
-            {id: 2, message: 'Hi'},
-            {id: 3, message: 'How is your it-kamasutra?'},
-            {id: 4, message: 'Hey'},
-            {id: 5, message: 'E'},
-            {id: 6, message: 'G'}
-        ],
-
+    getState() {
+        return this._state
     },
-}
-
-// export const addPost = (postMessage:string)
-
-let renderEntireTree = () => {
-    console.log('State changed');
-}
-
-export const subscribe = (observer:()=> void) => {
-    renderEntireTree = observer;
-}
-
-export const addPost = () => {
-    const newPost: postsType = {
-        id: 5,
-        message: state.profile.newPostText,
-        likeCount: 0,
-    };
-    state.profile.posts.push(newPost);
-    state.profile.newPostText = '';
-    renderEntireTree();
-}
-
-export const changeNewText = (newText: string) => {
-    state.profile.newPostText = newText;
-    renderEntireTree();
-}
-
-export const addNewMessage = () => {
-    const newMessage: messagesType = {
-        id: 7,
-        message: state.messagePage.newMessageText
+    renderEntireTree() {
+        console.log('State changed');
+    },
+    subscribe(observer) {
+        this.renderEntireTree = observer;
+    },
+    dispatch(action){
+        if (action.type === 'ADD-POST'){
+            const newPost: postsType = {
+                id: 5,
+                message: this._state.profile.newPostText,
+                likeCount: 0,
+            };
+            this._state.profile.posts.push(newPost);
+            this._state.profile.newPostText = '';
+            this.renderEntireTree();
+        }else if (action.type === 'CHANGE-NEW-POST-TEXT'){
+            this._state.profile.newPostText = action.newText;
+            this.renderEntireTree();
+        }
+    },
+    addNewMessage() {
+        const newMessage: messagesType = {
+            id: 7,
+            message: this._state.messagePage.newMessageText
+        }
+        this._state.messagePage.message.push(newMessage);
+        this._state.messagePage.newMessageText = '';
+        this.renderEntireTree();
+    },
+    changeNewMessageText(newText: string) {
+        debugger
+        this._state.messagePage.newMessageText = newText;
+        this.renderEntireTree();
     }
-    state.messagePage.message.push(newMessage);
-    state.messagePage.newMessageText = '';
-    renderEntireTree();
+
+
 }
-
-export const changeNewMessageText = (newText: string) => {
-    state.messagePage.newMessageText = newText;
-    renderEntireTree();
-}
-
-
-export default state;
-
-// export const renderEntireTree = (state: stateType) => {
-//     ReactDOM.render(
-//         <React.StrictMode>
-//             <App changeNewTextCallback={changeNewText}
-//                  newPostText={state.profile.newPostText}
-//                  appState={state}
-//                  addPost={addPost}
-//                  addNewMessage={addNewMessage}
-//                  changeNewMessageText={changeNewMessageText}/>
-//         </React.StrictMode>,
-//         document.getElementById('root')
