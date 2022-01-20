@@ -9,8 +9,8 @@ type dialogsPropsType = {
     message: Array<DataDialogsType>
     dialogs: Array<DataDialogsType>
     //state: stateType;
-    addNewMessage: ()=> void;
-    changeNewMessageText: (newText:string) => void;
+    addNewMessage: () => void;
+    changeNewMessageText: (newText: string) => void;
 
 }
 

@@ -9,9 +9,9 @@ import {ActionsType} from '../../redux/state';
 export type profilePropsType = {
     postsData: Array<postsDataType>;
     // addPost: ()=> void;
-    newPostText:string;
+    newPostText: string;
     //changeNewPostText: (newText: string) => void;
-    dispatch: (action:ActionsType) => void;
+    dispatch: (action: ActionsType) => void;
 }
 
 export const Profile = (props: profilePropsType) => {

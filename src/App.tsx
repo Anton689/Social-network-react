@@ -28,7 +28,7 @@ export type appPropsType = {
     addNewMessage: () => void;
     changeNewMessageText: (newText: string) => void;
     store: StoreType;
-    dispatch: (action:ActionsType) => void;
+    dispatch: (action: ActionsType) => void;
 }
 
 const App = (props: appPropsType) => {
@@ -48,7 +48,7 @@ const App = (props: appPropsType) => {
                         <Route path="/profile/*" element={<Profile postsData={profile.posts}
                                                                    dispatch={props.dispatch}
                                                                    newPostText={profile.newPostText}
-                                                                   />}/>
+                        />}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>

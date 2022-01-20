@@ -8,14 +8,13 @@ import {store, StoreType} from './redux/state';
 
 const renderEntireTree = (_store: StoreType) => {
     ReactDOM.render(
+        <App
+            store={_store}
 
-            <App
-                store={_store}
-
-                dispatch={_store.dispatch.bind(store)}
-                addNewMessage={_store.addNewMessage.bind(store)}
-                changeNewMessageText={_store.changeNewMessageText.bind(store)}
-            />
+            dispatch={_store.dispatch.bind(store)}
+            addNewMessage={_store.addNewMessage.bind(store)}
+            changeNewMessageText={_store.changeNewMessageText.bind(store)}
+        />
         ,
         document.getElementById('root')
     );
