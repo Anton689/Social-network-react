@@ -38,9 +38,11 @@ export type stateType = {
 
 export type AddPostType = ReturnType<typeof addPostActionCreator>
 export type ChangeNewPostTextType =  ReturnType<typeof changeNewPostText>
+export type AddNewMessageCreatorType = ReturnType<typeof addNewMessageCreator>
+export type ChangeNewMessageTextCreatorType = ReturnType<typeof changeNewMessageTextCreator>
 
 
-export type ActionsType = AddPostType | ChangeNewPostTextType;
+export type ActionsType = AddPostType | ChangeNewPostTextType | AddNewMessageCreatorType | ChangeNewMessageTextCreatorType;
 
 export type StoreType = {
     _state: stateType
@@ -48,8 +50,8 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     //addPost: () => void
     //changeNewPostText: (newText: string) => void
-    addNewMessage: () => void
-    changeNewMessageText: (newText: string) => void
+    // addNewMessage: () => void
+    // changeNewMessageText: (newText: string) => void
     getState: () => stateType
     dispatch: (action: ActionsType) => void;
 
@@ -105,25 +107,40 @@ export let store: StoreType = {
             this._state.profile.newPostText = '';
             this.renderEntireTree();
         } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
+
             this._state.profile.newPostText = action.newText;
+            this.renderEntireTree();
+
+        }else if (action.type === 'ADD-NEW-MASSAGE'){
+            const newMessage: messagesType = {
+                id: 7,
+                message: this._state.messagePage.newMessageText
+            }
+            this._state.messagePage.message.push(newMessage);
+            this._state.messagePage.newMessageText = '';
+            this.renderEntireTree();
+
+        }else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+            this._state.messagePage.newMessageText = action.newTextMessage;
             this.renderEntireTree();
         }
     },
-    addNewMessage() {
-        const newMessage: messagesType = {
-            id: 7,
-            message: this._state.messagePage.newMessageText
-        }
-        this._state.messagePage.message.push(newMessage);
-        this._state.messagePage.newMessageText = '';
-        this.renderEntireTree();
-    },
-    changeNewMessageText(newText: string) {
-        debugger
-        this._state.messagePage.newMessageText = newText;
-        this.renderEntireTree();
-    }
+    // addNewMessage() {
+    //     const newMessage: messagesType = {
+    //         id: 7,
+    //         message: this._state.messagePage.newMessageText
+    //     }
+    //     this._state.messagePage.message.push(newMessage);
+    //     this._state.messagePage.newMessageText = '';
+    //     this.renderEntireTree();
+    // },
+    // changeNewMessageText(newText: string) {
+    //     this._state.messagePage.newMessageText = newText;
+    //     this.renderEntireTree();
+    // }
 }
 
-export const addPostActionCreator = () => ({type: 'ADD-POST'}) as const
-export const changeNewPostText = (newText: string) => ({type: 'CHANGE-NEW-POST-TEXT', newText: newText}) as const
+export const addPostActionCreator = () => ({type: 'ADD-POST'}) as const;
+export const changeNewPostText = (newText: string) => ({type: 'CHANGE-NEW-POST-TEXT', newText: newText}) as const;
+export const addNewMessageCreator =()=> ({type: 'ADD-NEW-MASSAGE'}) as const;
+export const changeNewMessageTextCreator =(newTextMessage: string)=> ({type: 'CHANGE-NEW-MESSAGE-TEXT', newTextMessage: newTextMessage}) as const;

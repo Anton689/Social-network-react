@@ -25,8 +25,8 @@ export type appPropsType = {
     //appState: stateType;
     //addPost: () => void;
     //changeNewPostText: (newText: string) => void;
-    addNewMessage: () => void;
-    changeNewMessageText: (newText: string) => void;
+    // addNewMessage: () => void;
+    // changeNewMessageText: (newText: string) => void;
     store: StoreType;
     dispatch: (action: ActionsType) => void;
 }
@@ -42,8 +42,8 @@ const App = (props: appPropsType) => {
                     <Routes>
                         <Route path="/dialogs/*" element={<Dialogs message={messagePage.message}
                                                                    dialogs={profile.dialogs}
-                                                                   addNewMessage={props.addNewMessage}
-                                                                   changeNewMessageText={props.changeNewMessageText}/>}/>
+                                                                   dispatch={props.dispatch}
+                        />}/>
 
                         <Route path="/profile/*" element={<Profile postsData={profile.posts}
                                                                    dispatch={props.dispatch}

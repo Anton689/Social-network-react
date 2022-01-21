@@ -21,7 +21,6 @@ export const MyPosts = (props: postsPropsType) => {
         props.dispatch(addPostActionCreator())
     }
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.changeNewPostText(e.currentTarget.value)
         props.dispatch(changeNewPostText(e.currentTarget.value))
     }
 

@@ -3,14 +3,15 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {DataDialogsType} from '../../App';
-import {stateType} from '../../redux/state';
+import {ActionsType, addNewMessageCreator, changeNewMessageTextCreator, stateType, StoreType} from '../../redux/state';
 
 type dialogsPropsType = {
     message: Array<DataDialogsType>
     dialogs: Array<DataDialogsType>
     //state: stateType;
-    addNewMessage: () => void;
-    changeNewMessageText: (newText: string) => void;
+    // addNewMessage: () => void;
+    // changeNewMessageText: (newText: string) => void;
+    dispatch: (action: ActionsType) => void;
 
 }
 
@@ -22,11 +23,12 @@ export const Dialogs = (props: dialogsPropsType) => {
                                                                    id={dialogs.id}/>)
 
     const onClickHandler = () => {
-        props.addNewMessage();
+        props.dispatch(addNewMessageCreator());
     }
 
     const newTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageText(e.currentTarget.value);
+        props.dispatch(changeNewMessageTextCreator(e.currentTarget.value));
+
     }
     return (
         <div className={s.dialogs}>
@@ -39,7 +41,7 @@ export const Dialogs = (props: dialogsPropsType) => {
             </div>
 
             <div>
-                <textarea onChange={newTextAreaHandler}/>
+                <textarea placeholder='Enter your message' onChange={newTextAreaHandler}/>
             </div>
             <div>
                 <button onClick={onClickHandler}>add</button>
