@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import {Posts} from './Posts/Posts';
 import {postsDataType} from '../../../App';
-import {ActionsType, addPostActionCreator, changeNewPostText, profileType, stateType} from '../../../redux/state';
+import {addPostActionCreator, changeNewPostText, ActionsTypeProfile} from '../../../redux/profileReducer';
+import {ActionsTypeMessagePage} from '../../../redux/messagePageReducer';
 
 
 type postsPropsType = {
@@ -10,7 +11,7 @@ type postsPropsType = {
     //addPost: () => void;
     newPostText: string;
     //changeNewPostText: (newText: string) => void;
-    dispatch: (action: ActionsType) => void;
+    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 

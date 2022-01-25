@@ -3,7 +3,8 @@ import s from './Profile.module.css';
 import {MyPosts} from './MyPost/MyPosts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {postsDataType} from './../../App'
-import {ActionsType} from '../../redux/state';
+import {ActionsTypeProfile} from '../../redux/profileReducer';
+import {ActionsTypeMessagePage} from '../../redux/messagePageReducer';
 
 
 export type profilePropsType = {
@@ -11,7 +12,7 @@ export type profilePropsType = {
     // addPost: ()=> void;
     newPostText: string;
     //changeNewPostText: (newText: string) => void;
-    dispatch: (action: ActionsType) => void;
+    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 export const Profile = (props: profilePropsType) => {

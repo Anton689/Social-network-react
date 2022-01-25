@@ -8,7 +8,9 @@ import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
-import {ActionsType, StoreType} from './redux/state';
+import {StoreType} from './redux/state';
+import {ActionsTypeProfile} from './redux/profileReducer';
+import {ActionsTypeMessagePage} from './redux/messagePageReducer';
 
 export type DataDialogsType = {
     id: number;
@@ -28,11 +30,11 @@ export type appPropsType = {
     // addNewMessage: () => void;
     // changeNewMessageText: (newText: string) => void;
     store: StoreType;
-    dispatch: (action: ActionsType) => void;
+    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 const App = (props: appPropsType) => {
-    const {messagePage, profile} = props.store.getState()
+    const {dialogsPage, profilePage} = props.store.getState()
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -40,14 +42,14 @@ const App = (props: appPropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<Dialogs message={messagePage.message}
-                                                                   dialogs={profile.dialogs}
+                        <Route path="/dialogs/*" element={<Dialogs message={dialogsPage.message}
+                                                                   dialogs={profilePage.dialogs}
                                                                    dispatch={props.dispatch}
                         />}/>
 
-                        <Route path="/profile/*" element={<Profile postsData={profile.posts}
+                        <Route path="/profile/*" element={<Profile postsData={profilePage.posts}
                                                                    dispatch={props.dispatch}
-                                                                   newPostText={profile.newPostText}
+                                                                   newPostText={profilePage.newPostText}
                         />}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
