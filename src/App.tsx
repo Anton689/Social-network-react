@@ -8,7 +8,7 @@ import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
-import {StoreType} from './redux/state';
+import {StoreType} from './redux/store';
 import {ActionsTypeProfile} from './redux/profileReducer';
 import {ActionsTypeMessagePage} from './redux/messagePageReducer';
 

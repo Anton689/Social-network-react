@@ -3,7 +3,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {store, StoreType} from './redux/state';
+import {store} from './redux/reduxStore';
+import {StoreType} from './redux/store';
 
 
 const renderEntireTree = (_store: StoreType) => {

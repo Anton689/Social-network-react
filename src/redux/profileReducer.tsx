@@ -1,4 +1,4 @@
-import {postsType, profileType} from './state';
+import {postsType, profileType} from './store';
 import {ActionsTypeMessagePage} from './messagePageReducer';
 
 const ADD_POST = 'ADD-POST';
@@ -14,7 +14,22 @@ export type ActionsTypeProfile =
     AddPostType
     | ChangeNewPostTextType;
 
-const profileReducer = (state: profileType, action: ActionsTypeProfile | ActionsTypeMessagePage) => {
+let initialState = {
+    posts: [
+        {id: 1, message: 'Hi, how are you?', likeCount: 15},
+        {id: 2, message: 'It\'s my first post', likeCount: 20},
+    ],
+    newPostText: '',
+    dialogs: [{id: 1, name: 'Anton'},
+        {id: 2, name: 'Bob'},
+        {id: 3, name: 'C'},
+        {id: 4, name: 'D'},
+        {id: 5, name: 'E'},
+        {id: 6, name: 'G'}
+    ],
+}
+
+const profileReducer = (state: profileType = initialState, action: ActionsTypeProfile | ActionsTypeMessagePage) => {
 
     switch (action.type) {
         case ADD_POST:

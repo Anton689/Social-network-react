@@ -1,4 +1,4 @@
-import {messagePageType, messagesType} from './state';
+import {messagePageType, messagesType} from './store';
 import {ActionsTypeProfile} from './profileReducer';
 
 const ADD_NEW_MASSAGE = 'ADD-NEW-MASSAGE';
@@ -17,7 +17,19 @@ export type ActionsTypeMessagePage =
     | AddNewMessageCreatorType
     | ChangeNewMessageTextCreatorType;
 
-const dialogPageReducer = (state: messagePageType, action: ActionsTypeMessagePage | ActionsTypeProfile) => {
+let initialState = {
+    newMessageText: '',
+    message: [
+        {id: 1, message: 'Privet'},
+        {id: 2, message: 'Hi'},
+        {id: 3, message: 'How is your it-kamasutra?'},
+        {id: 4, message: 'Hey'},
+        {id: 5, message: 'E'},
+        {id: 6, message: 'G'}
+    ],
+}
+
+const dialogPageReducer = (state: messagePageType = initialState, action: ActionsTypeMessagePage | ActionsTypeProfile) => {
     switch (action.type) {
         case ADD_NEW_MASSAGE:
             const newMessage: messagesType = {
