@@ -17,7 +17,12 @@ export type ActionsTypeMessagePage =
     | AddNewMessageCreatorType
     | ChangeNewMessageTextCreatorType;
 
-let initialState = {
+export type InitialStateType = {
+    newMessageText: string;
+    message: Array<messagesType>
+}
+
+let initialState: InitialStateType = {
     newMessageText: '',
     message: [
         {id: 1, message: 'Privet'},
@@ -29,7 +34,9 @@ let initialState = {
     ],
 }
 
-const dialogPageReducer = (state: messagePageType = initialState, action: ActionsTypeMessagePage | ActionsTypeProfile) => {
+//type initialStateType = typeof initialState
+
+const dialogPageReducer = (state = initialState, action: ActionsTypeMessagePage | ActionsTypeProfile): InitialStateType => {
     switch (action.type) {
         case ADD_NEW_MASSAGE:
             const newMessage: messagesType = {

@@ -11,7 +11,6 @@ export type messagesType = {
 export type dialogsType = {
     id: number;
     name: string;
-
 }
 
 export type postsType = {

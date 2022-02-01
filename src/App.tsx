@@ -11,6 +11,8 @@ import {Settings} from './Components/Settings/Settings';
 import {StoreType} from './redux/store';
 import {ActionsTypeProfile} from './redux/profileReducer';
 import {ActionsTypeMessagePage} from './redux/messagePageReducer';
+import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
+import {AppStateType} from './redux/reduxStore';
 
 export type DataDialogsType = {
     id: number;
@@ -29,12 +31,12 @@ export type appPropsType = {
     //changeNewPostText: (newText: string) => void;
     // addNewMessage: () => void;
     // changeNewMessageText: (newText: string) => void;
-    store: StoreType;
+    store: AppStateType;
     dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 const App = (props: appPropsType) => {
-    const {dialogsPage, profilePage} = props.store.getState()
+    const {dialogsPage, profilePage} = props.store
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -42,14 +44,19 @@ const App = (props: appPropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<Dialogs message={dialogsPage.message}
-                                                                   dialogs={profilePage.dialogs}
-                                                                   dispatch={props.dispatch}
+                        <Route path="/dialogs/*" element={<DialogsContainer
+                            message={dialogsPage.message}
+                            dialogs={profilePage.dialogs}
+                           dispatch={props.dispatch}
+
                         />}/>
 
-                        <Route path="/profile/*" element={<Profile postsData={profilePage.posts}
-                                                                   dispatch={props.dispatch}
-                                                                   newPostText={profilePage.newPostText}
+                        <Route path="/profile/*" element={<Profile
+                            postsData={profilePage.posts}
+                            dispatch={props.dispatch}
+                            newPostText={profilePage.newPostText}
+
+
                         />}/>
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>

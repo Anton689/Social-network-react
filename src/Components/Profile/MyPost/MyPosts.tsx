@@ -9,20 +9,22 @@ import {ActionsTypeMessagePage} from '../../../redux/messagePageReducer';
 type postsPropsType = {
     postsName: Array<postsDataType>;
     //addPost: () => void;
-    newPostText: string;
+    newPostText: string
     //changeNewPostText: (newText: string) => void;
-    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+    addPost: () => void
+    updateNewPostText: (text: string) => void
 }
-
 
 
 export const MyPosts = (props: postsPropsType) => {
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator())
+    const onAddPost = () => {
+        props.addPost()
+        //props.dispatch(addPostActionCreator())
     }
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewPostText(e.currentTarget.value))
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
     }
 
     return (
@@ -31,9 +33,9 @@ export const MyPosts = (props: postsPropsType) => {
                 <h3 className={s.postsPadding}>My Posts</h3>
                 <div>
                     <div>
-                        <textarea onChange={newTextChangeHandler} value={props.newPostText}/>
+                        <textarea onChange={onPostChange} value={props.newPostText}/>
                     </div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                     <button>Remove</button>
                 </div>
                 <div className={s.posts}>
