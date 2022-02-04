@@ -31,12 +31,12 @@ export type appPropsType = {
     //changeNewPostText: (newText: string) => void;
     // addNewMessage: () => void;
     // changeNewMessageText: (newText: string) => void;
-    store: AppStateType;
-    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+    //store: AppStateType;
+    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 const App = (props: appPropsType) => {
-    const {dialogsPage, profilePage} = props.store
+    //const {dialogsPage, profilePage} = props.store
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -45,16 +45,16 @@ const App = (props: appPropsType) => {
                 <div className="app-wrapper-content">
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer
-                            message={dialogsPage.message}
-                            dialogs={profilePage.dialogs}
-                           dispatch={props.dispatch}
+                           // message={dialogsPage.message}
+                            //dialogs={profilePage.dialogs}
+                           //dispatch={props.dispatch}
 
                         />}/>
 
                         <Route path="/profile/*" element={<Profile
-                            postsData={profilePage.posts}
-                            dispatch={props.dispatch}
-                            newPostText={profilePage.newPostText}
+                            //postsData={profilePage.posts}
+                            //dispatch={props.dispatch}
+                            //newPostText={profilePage.newPostText}
 
 
                         />}/>

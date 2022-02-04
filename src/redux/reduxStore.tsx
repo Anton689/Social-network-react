@@ -13,8 +13,5 @@ let rootReducers = combineReducers({
 //type RootReducersType = typeof rootReducers;
 export type AppStateType = ReturnType<typeof rootReducers>
 
-const mstp = (state: AppStateType ) => {}
-
-//export let store: StoreType = createStore(rootReducers);
 export let store: Store<AppStateType> = createStore(rootReducers);
 

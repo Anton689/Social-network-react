@@ -11,11 +11,11 @@ import {StoreType} from '../../redux/store';
 
 
 export type profilePropsType = {
-    postsData: Array<postsDataType>;
+    //postsData: Array<postsDataType>;
     // addPost: ()=> void;
-    newPostText: string;
+    //newPostText: string;
     //changeNewPostText: (newText: string) => void;
-    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
 export const Profile = (props: profilePropsType) => {
@@ -24,9 +24,9 @@ export const Profile = (props: profilePropsType) => {
         <div>
             <ProfileInfo/>
             <MyPostsContainer
-                postsName={props.postsData}
-                dispatch={props.dispatch}
-                newPostText={props.newPostText}
+                //postsName={props.postsData}
+                //dispatch={props.dispatch}
+                //newPostText={props.newPostText}
             />
         </div>
     )

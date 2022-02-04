@@ -14,6 +14,7 @@ type postsPropsType = {
     //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
     addPost: () => void
     updateNewPostText: (text: string) => void
+
 }
 
 

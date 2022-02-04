@@ -1,43 +1,65 @@
 import React, {ChangeEvent} from 'react';
-import s from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem';
-import Message from './Message/Message';
-import {DataDialogsType} from '../../App';
 import {
     ActionsTypeMessagePage,
     addNewMessageCreator,
-    changeNewMessageTextCreator
+    changeNewMessageTextCreator, InitialStateType
 } from '../../redux/messagePageReducer';
-import {ActionsTypeProfile} from '../../redux/profileReducer';
 import {Dialogs} from './Dialogs';
 import {AppStateType} from '../../redux/reduxStore';
-import {StoreType} from '../../redux/store';
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 
-type dialogsPropsType = {
-    message: Array<DataDialogsType>
-    dialogs: Array<DataDialogsType>
+//type dialogsPropsType = {
+    //message: Array<DataDialogsType>
+    //dialogs: Array<DataDialogsType>
     //state: stateType;
     // addNewMessage: () => void;
     // changeNewMessageText: (newText: string) => void;
-    dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
+
+// export const DialogsContainer = (props: dialogsPropsType) => {
+//
+//     const onClickHandler = () => {
+//         props.dispatch(addNewMessageCreator());
+//     }
+//
+//     const newTextAreaHandler = (body: string) => {
+//         props.dispatch(changeNewMessageTextCreator(body));
+//
+//     }
+//     return <Dialogs dialogs={props.dialogs}
+//                     message={props.message}
+//                     changeNewMessageTextBody={newTextAreaHandler}
+//                     sendMessage={onClickHandler}/>
+//
+// }
 
 
+export type MapStateToPropsType = {
+    dialogs:InitialStateType
 }
 
-
-export const DialogsContainer = (props: dialogsPropsType) => {
-
-    const onClickHandler = () => {
-        props.dispatch(addNewMessageCreator());
-    }
-
-    const newTextAreaHandler = (body: string) => {
-        props.dispatch(changeNewMessageTextCreator(body));
-
-    }
-    return <Dialogs dialogs={props.dialogs}
-                    message={props.message}
-                    changeNewMessageTextBody={newTextAreaHandler}
-                    sendMessage={onClickHandler}/>
-
+type MapDispatchToPropsType = {
+    changeNewMessageTextBody: (body: string)=> void
+    sendMessage: ()=> void
 }
+
+let mapStateToProps = (state: AppStateType)/*:MapStateToPropsType*/ => {
+    return {
+        dialogs: state.profilePage.dialogs,
+        message: state.dialogsPage.message
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+    return {
+        changeNewMessageTextBody: (body:string) => {
+            dispatch(changeNewMessageTextCreator(body))
+        },
+        sendMessage: () => {
+            dispatch(addNewMessageCreator())
+        }
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
