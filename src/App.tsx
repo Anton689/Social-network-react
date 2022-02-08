@@ -14,6 +14,7 @@ import {ActionsTypeMessagePage} from './redux/messagePageReducer';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {AppStateType} from './redux/reduxStore';
 import {Users} from './Components/Users/Users';
+import UsersContainer from './Components/Users/UsersContainer';
 
 export type DataDialogsType = {
     id: number;
