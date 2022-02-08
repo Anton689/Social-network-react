@@ -3,11 +3,13 @@ import profileReducer from './profileReducer';
 import dialogPageReducer from './messagePageReducer';
 import sidebarReducer from './sidebarReducer';
 import {StoreType} from './store';
+import {usersReducer} from './usersReducer';
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogPageReducer,
-    sidebar: sidebarReducer
+    sidebar: sidebarReducer,
+    usersPage: usersReducer,
 });
 
 //type RootReducersType = typeof rootReducers;

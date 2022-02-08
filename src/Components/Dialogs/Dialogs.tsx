@@ -26,8 +26,8 @@ type dialogsPropsType = {
 export const Dialogs = (props: dialogsPropsType) => {
 
 
-    let messagesElement = props.message.map(message => <Message text={message.message}/>)
-    let dialogsElements = props.dialogs.map(dialogs => <DialogItem name={dialogs.name}
+    let messagesElement = props.message.map(message => <Message key={message.id} text={message.message}/>)
+    let dialogsElements = props.dialogs.map(dialogs => <DialogItem key={dialogs.id} name={dialogs.name}
                                                                    id={dialogs.id}/>)
 
     const onClickHandler = () => {

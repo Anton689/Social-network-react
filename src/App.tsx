@@ -13,6 +13,7 @@ import {ActionsTypeProfile} from './redux/profileReducer';
 import {ActionsTypeMessagePage} from './redux/messagePageReducer';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {AppStateType} from './redux/reduxStore';
+import {Users} from './Components/Users/Users';
 
 export type DataDialogsType = {
     id: number;
@@ -44,23 +45,17 @@ const App = (props: appPropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/dialogs/*" element={<DialogsContainer
-                           // message={dialogsPage.message}
-                            //dialogs={profilePage.dialogs}
-                           //dispatch={props.dispatch}
+                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
 
-                        />}/>
+                        <Route path="/profile/*" element={<Profile/>}/>
 
-                        <Route path="/profile/*" element={<Profile
-                            //postsData={profilePage.posts}
-                            //dispatch={props.dispatch}
-                            //newPostText={profilePage.newPostText}
-
-
-                        />}/>
                         <Route path="/news/*" element={<News/>}/>
+
                         <Route path="/music/*" element={<Music/>}/>
+
                         <Route path="/settings/*" element={<Settings/>}/>
+
+                        <Route path="/users/*" element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>

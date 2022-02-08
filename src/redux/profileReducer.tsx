@@ -57,15 +57,16 @@ const profileReducer = (state = initialState, action: ActionsTypeProfile | Actio
                 message: state.newPostText,
                 likeCount: 0,
             };
-            let copyState = {...state}
-            copyState.posts = [...state.posts];
-            copyState.posts.push(newPost);
-            copyState.newPostText = '';
-            return copyState;
+            return{
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ''
+            }
         case CHANGE_NEW_POST_TEXT:
-            let copyState2 = {...state}
-            copyState2.newPostText = action.newText;
-            return copyState2;
+            return {
+                ...state,
+                newPostText:action.newText
+            }
         default:
             return state;
     }
