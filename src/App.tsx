@@ -3,17 +3,11 @@ import './App.css';
 import {Profile} from './Components/Profile/Profile';
 import {Header} from './Components/Header/Header';
 import {Navbar} from './Components/Navbar/Navbar';
-import {Dialogs} from './Components/Dialogs/Dialogs';
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
-import {StoreType} from './redux/store';
-import {ActionsTypeProfile} from './redux/profileReducer';
-import {ActionsTypeMessagePage} from './redux/messagePageReducer';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
-import {AppStateType} from './redux/reduxStore';
-import {Users} from './Components/Users/Users';
 import UsersContainer from './Components/Users/UsersContainer';
 
 export type DataDialogsType = {
