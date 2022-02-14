@@ -3,3 +3,12 @@
     height: 50px;
     border-radius: 50%;
 }
+
+.selectedPage {
+    font-weight: bold;
+    margin: 0px 3px;
+}
+
+.page {
+    margin: 0px 3px;
+}
