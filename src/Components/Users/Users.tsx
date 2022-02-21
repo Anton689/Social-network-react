@@ -3,6 +3,7 @@ import style from './userAva.module.css';
 import userPhoto from '../../Assets/img/user.jpg';
 import {UsersPropsType} from './UsersContainer';
 import {InitialStateType} from '../../redux/usersReducer';
+import {NavLink} from 'react-router-dom';
 
 type UsersType = {
     onPageChanged: (p: number)=> void
@@ -37,7 +38,9 @@ export const Users = (props: UsersType) => {
                 props.users.users.map(u => <div key={u.id}>
                     <span>
                          <div>
+                             <NavLink to = {'/profile' + '/' + u.id}>
                              <img className={style.userAva} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                                 </NavLink>
                          </div>
                         <div>
                             {u.followed

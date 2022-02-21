@@ -1,8 +1,15 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 
+type ProfileInfoType = {
+    profile: any
+    fullname: string
+    contacts: string
+    aboutMe: string
 
-export const ProfileInfo = () => {
+}
+
+export const ProfileInfo = (props:ProfileInfoType) => {
     return (
         <div >
             <div>
@@ -11,8 +18,11 @@ export const ProfileInfo = () => {
                     alt=""/>
             </div>
             <div className={s.descriptionBlock}>
-                ava + description
+                <img src={props.profile} />
             </div>
+            <div>{props.fullname}</div>
+            <div>{props.contacts}</div>
+            <div>{props.aboutMe}</div>
 
         </div>
     )

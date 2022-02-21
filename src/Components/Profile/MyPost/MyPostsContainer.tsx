@@ -1,17 +1,10 @@
-import React, {ChangeEvent} from 'react';
-import {postsDataType} from '../../../App';
-import {addPostActionCreator, changeNewPostText, ActionsTypeProfile} from '../../../redux/profileReducer';
-import {
-    ActionsTypeMessagePage,
-    addNewMessageCreator,
-    changeNewMessageTextCreator, InitialStateType
-} from '../../../redux/messagePageReducer';
+import React from 'react';
+import {addPostActionCreator, changeNewPostText} from '../../../redux/profileReducer';
+import {InitialStateType} from '../../../redux/messagePageReducer';
 import {MyPosts} from './MyPosts';
 import {AppStateType} from '../../../redux/reduxStore';
-import {StoreType} from '../../../redux/store';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {Dialogs} from '../../Dialogs/Dialogs';
 
 
 // type postsPropsType = {

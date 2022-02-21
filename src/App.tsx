@@ -9,6 +9,7 @@ import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
+import ProfileContainer from './Components/Profile/ProfileContainer';
 
 export type DataDialogsType = {
     id: number;
@@ -42,7 +43,7 @@ const App = (props: appPropsType) => {
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
 
-                        <Route path="/profile/*" element={<Profile/>}/>
+                        <Route path="/profile/*" element={<ProfileContainer/>}/>
 
                         <Route path="/news/*" element={<News/>}/>
 

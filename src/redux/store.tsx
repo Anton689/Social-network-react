@@ -13,13 +13,13 @@ export type dialogsType = {
     name: string;
 }
 
-export type postsType = {
+type postsType = {
     id: number;
     message: string;
     likeCount: number;
 }
 
-export type profileType = {
+ type profileType = {
     posts: Array<postsType>;
     dialogs: Array<dialogsType>;
     newPostText: string;
@@ -39,7 +39,7 @@ export type stateType = {
 
 }
 
-export type StoreType = {
+type StoreType = {
     _state: stateType
     renderEntireTree: () => void
     subscribe: (observer: () => void) => void
@@ -51,7 +51,7 @@ export type StoreType = {
     dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
 }
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -92,7 +92,7 @@ export let store: StoreType = {
     },
     dispatch(action) {
 
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        // this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogPageReducer(this._state.dialogsPage, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
