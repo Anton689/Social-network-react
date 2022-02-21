@@ -1,25 +1,23 @@
 import React from 'react';
 import style from './userAva.module.css';
 import userPhoto from '../../Assets/img/user.jpg';
-import {UsersPropsType} from './UsersContainer';
 import {InitialStateType} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
 
 type UsersType = {
-    onPageChanged: (p: number)=> void
+    onPageChanged: (p: number) => void
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    users:InitialStateType
-    unfollow: (userId: number)=> void
-    follow: (userId: number)=> void
+    users: InitialStateType
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
 }
 
 export const Users = (props: UsersType) => {
 
 
-
-    let pagesCount = Math.ceil(props.totalUsersCount /props.pageSize)
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -31,14 +29,14 @@ export const Users = (props: UsersType) => {
             <div>
                 {pages.map(p => {
                     return <span className={props.currentPage === p ? style.selectedPage : style.page}
-                                 onClick={()=>props.onPageChanged(p)}>{p}</span>
+                                 onClick={() => props.onPageChanged(p)}>{p}</span>
                 })}
             </div>
             {
                 props.users.users.map(u => <div key={u.id}>
                     <span>
                          <div>
-                             <NavLink to = {'/profile' + '/' + u.id}>
+                             <NavLink to={'/profile' + '/' + u.id}>
                              <img className={style.userAva} src={u.photos.small != null ? u.photos.small : userPhoto}/>
                                  </NavLink>
                          </div>

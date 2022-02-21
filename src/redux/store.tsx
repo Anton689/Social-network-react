@@ -19,7 +19,7 @@ type postsType = {
     likeCount: number;
 }
 
- type profileType = {
+type profileType = {
     posts: Array<postsType>;
     dialogs: Array<dialogsType>;
     newPostText: string;

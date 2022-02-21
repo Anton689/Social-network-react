@@ -43,8 +43,8 @@ type MapStateToPropsType = {
     postsName: InitialStateType
 }
 type MapDispatchToPropsType = {
-    updateNewPostText:(text:string)=>void
-    addPost: ()=>void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
 }
 
 let mapStateToProps = (state: AppStateType) /* :MapStateToPropsType*/ => {
@@ -54,12 +54,12 @@ let mapStateToProps = (state: AppStateType) /* :MapStateToPropsType*/ => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        updateNewPostText: (text: string)=> {
+        updateNewPostText: (text: string) => {
             dispatch(changeNewPostText(text))
         },
-        addPost: ()=> {
+        addPost: () => {
             dispatch(addPostActionCreator())
         }
     }

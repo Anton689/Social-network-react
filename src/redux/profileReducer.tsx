@@ -1,4 +1,3 @@
-
 import {ActionsTypeMessagePage} from './messagePageReducer';
 
 const ADD_POST = 'ADD-POST';
@@ -17,7 +16,7 @@ export type ActionsTypeProfile =
     AddPostType
     | ChangeNewPostTextType | SetUserProfileType;
 
- type PostsType = {
+type PostsType = {
     id: number;
     message: string;
     likeCount: number;
@@ -63,7 +62,7 @@ const profileReducer = (state = initialState, action: ActionsTypeProfile | Actio
                 message: state.newPostText,
                 likeCount: 0,
             };
-            return{
+            return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ''
@@ -71,7 +70,7 @@ const profileReducer = (state = initialState, action: ActionsTypeProfile | Actio
         case CHANGE_NEW_POST_TEXT:
             return {
                 ...state,
-                newPostText:action.newText
+                newPostText: action.newText
             }
         case SET_USER_PROFILE:
             return {

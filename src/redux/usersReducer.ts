@@ -2,10 +2,16 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT= 'SET_TOTAL_USERS_COUNT'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
-export type AllActionsType = FollowAcType | UnfollowAcType | SetUsersType | SetCurrentPageACType | SetTotalUsersCountACType | SetIsFetchingType
+export type AllActionsType =
+    FollowAcType
+    | UnfollowAcType
+    | SetUsersType
+    | SetCurrentPageACType
+    | SetTotalUsersCountACType
+    | SetIsFetchingType
 
 
 export type PhotoType = {

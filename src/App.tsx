@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
-import {Profile} from './Components/Profile/Profile';
 import {Header} from './Components/Header/Header';
 import {Navbar} from './Components/Navbar/Navbar';
-import {Route, Routes, BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
@@ -41,6 +40,7 @@ const App = (props: appPropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
+
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
 
                         <Route path="/profile/*" element={<ProfileContainer/>}/>
