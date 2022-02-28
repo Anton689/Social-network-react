@@ -3,12 +3,14 @@ import profileReducer from './profileReducer';
 import dialogPageReducer from './messagePageReducer';
 import sidebarReducer from './sidebarReducer';
 import {usersReducer} from './usersReducer';
+import {authReducer} from '../Components/Header/auth-reducer';
 
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogPageReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
+    auth: authReducer
 });
 
 //type RootReducersType = typeof rootReducers;
