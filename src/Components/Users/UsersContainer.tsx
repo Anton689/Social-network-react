@@ -38,6 +38,7 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, AppStateT
     componentDidMount() {
         this.props.setIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users/`, {
+            withCredentials: true,
             headers: {
                 'API-KEY': 'cdec8a86-dfbd-42af-bdcf-a34dd34bbfb8'
             },
@@ -56,7 +57,9 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, AppStateT
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
