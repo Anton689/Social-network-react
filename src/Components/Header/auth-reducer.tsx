@@ -1,3 +1,6 @@
+import {Dispatch} from 'redux';
+import {headerAPI} from '../../API/HeaderAPI';
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 export const setUserDataAC = (id: number, email: string, login: string)  => ({type: SET_USER_DATA, data: {id, email, login}}) as const;
@@ -36,3 +39,17 @@ export const authReducer = (state = initialState, action: ActionsTypeAuth): init
             return state;
     }
 }
+
+export const authTC = () => {
+    return (dispatch: Dispatch) => {
+
+        headerAPI.getUserData()
+            .then(response => {
+        if (response.data.resultCode === 0) {
+            const {id, email, login} = response.data.data
+            dispatch(setUserDataAC(id, email, login));
+        }
+    })
+    }
+}
+
