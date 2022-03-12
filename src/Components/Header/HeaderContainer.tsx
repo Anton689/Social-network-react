@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from './Header';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reduxStore';
-import {authTC, setUserDataAC} from './auth-reducer';
+import {authTC} from './auth-reducer';
 
 export type MapStateToPropsType = {
     isAuth: boolean
@@ -15,16 +15,6 @@ class HeaderContainer extends React.Component<any,any> {
     componentDidMount() {
 
         this.props.authTC()
-
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        //     withCredentials: true
-        // })
-        //     .then(response => {
-        //         if (response.data.resultCode === 0) {
-        //             const {id, email, login} = response.data.data
-        //             this.props.setUserDataAC(id, email, login);
-        //         }
-        //     });
     }
     render() {
 
@@ -41,4 +31,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType=>{
     }
 }
 
-export default connect(mapStateToProps, {setUserDataAC, authTC})(HeaderContainer)
+export default connect(mapStateToProps, {authTC})(HeaderContainer)

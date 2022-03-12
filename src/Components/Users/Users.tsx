@@ -3,7 +3,6 @@ import style from './userAva.module.css';
 import userPhoto from '../../Assets/img/user.jpg';
 import {InitialStateType} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from '../../API/API';
 
 type UsersType = {
     onPageChanged: (p: number) => void

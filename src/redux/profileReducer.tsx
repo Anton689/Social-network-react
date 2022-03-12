@@ -1,4 +1,6 @@
 import {ActionsTypeMessagePage} from './messagePageReducer';
+import {Dispatch} from 'redux';
+import {profileAPI} from '../API/ProfileAPI';
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
@@ -80,5 +82,16 @@ const profileReducer = (state = initialState, action: ActionsTypeProfile | Actio
             return state;
     }
 }
+
+export const setUserProfileTc = (userId: number) => {
+    return (dispatch: Dispatch) => {
+
+        profileAPI.setUser(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
+
 
 export default profileReducer;

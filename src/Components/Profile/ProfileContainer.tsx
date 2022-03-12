@@ -1,9 +1,8 @@
 import React from 'react';
 import {Profile} from './Profile';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reduxStore';
-import {setUserProfile} from '../../redux/profileReducer';
+import {setUserProfileTc} from '../../redux/profileReducer';
 import {useMatch, useParams} from 'react-router-dom';
 
 
@@ -12,7 +11,7 @@ export type MapStateToPropsType = {
 }
 
 type ProfileDispatchPropsType = {
-    setUserProfile: (profile: number) => void
+    // setUserProfile: (profile: number) => void
 }
 
 type MatchType= {
@@ -30,14 +29,8 @@ class ProfileContainer extends React.Component<any, AppStateType> {
 
         let userId = this.props.params['*'] ? this.props.params['*'] : '3'
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-            headers: {
-                'API-KEY': 'cdec8a86-dfbd-42af-bdcf-a34dd34bbfb8'
-            }
-        })
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            });
+        this.props.setUserProfileTc(userId)
+
     }
     render() {
         return (
@@ -62,4 +55,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileURLMatch)
+export default connect(mapStateToProps, {setUserProfileTc})(ProfileURLMatch)

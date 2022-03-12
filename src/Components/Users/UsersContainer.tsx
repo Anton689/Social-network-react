@@ -6,16 +6,11 @@ import {
     getUsersTC,
     InitialStateType,
     setCurrentPage,
-    setIsFetching,
-    setTotalUsersCount,
-    setUsers, toggleIsFollowingProgress, unfollow,
-
-    UsersType
+    toggleIsFollowingProgress,
+    unfollow
 } from '../../redux/usersReducer';
-import axios from 'axios';
 import {Users} from './Users';
 import {Preloader} from '../Common/preloader/Preloader';
-import {usersAPI} from '../../API/API';
 
 export type MapStateToPropsType = {
     users: InitialStateType
