@@ -3,21 +3,10 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {DataDialogsType} from '../../App';
-import {
-    ActionsTypeMessagePage,
-    addNewMessageCreator,
-    changeNewMessageTextCreator
-} from '../../redux/messagePageReducer';
-import {ActionsTypeProfile} from '../../redux/profileReducer';
-import { Navigate } from 'react-router-dom';
 
 type dialogsPropsType = {
     message: Array<DataDialogsType>
     dialogs: Array<DataDialogsType>
-    //state: stateType;
-    // addNewMessage: () => void;
-    // changeNewMessageText: (newText: string) => void;
-    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
     changeNewMessageTextBody: (body: string) => void
     sendMessage:()=> void
     isAuth: boolean
@@ -41,8 +30,6 @@ export const Dialogs = (props: dialogsPropsType) => {
         //props.dispatch(changeNewMessageTextCreator(e.currentTarget.value));
 
     }
-
-    if(!props.isAuth) return <Navigate to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

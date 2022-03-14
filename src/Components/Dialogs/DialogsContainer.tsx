@@ -1,13 +1,10 @@
-import React, {ChangeEvent} from 'react';
-import {
-    ActionsTypeMessagePage,
-    addNewMessageCreator,
-    changeNewMessageTextCreator, InitialStateType
-} from '../../redux/messagePageReducer';
+import React from 'react';
+import {addNewMessageCreator, changeNewMessageTextCreator, InitialStateType} from '../../redux/messagePageReducer';
 import {Dialogs} from './Dialogs';
 import {AppStateType} from '../../redux/reduxStore';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
 
 //type dialogsPropsType = {
     //message: Array<DataDialogsType>
@@ -64,4 +61,4 @@ let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs))
