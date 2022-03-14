@@ -3,7 +3,10 @@ import {headerAPI} from '../../API/HeaderAPI';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-export const setUserDataAC = (id: number, email: string, login: string)  => ({type: SET_USER_DATA, data: {id, email, login}}) as const;
+export const setUserDataAC = (id: number, email: string, login: string) => ({
+    type: SET_USER_DATA,
+    data: {id, email, login}
+}) as const;
 
 // id: number, email: string, login: string
 
@@ -45,11 +48,11 @@ export const authTC = () => {
 
         headerAPI.getUserData()
             .then(response => {
-        if (response.data.resultCode === 0) {
-            const {id, email, login} = response.data.data
-            dispatch(setUserDataAC(id, email, login));
-        }
-    })
+                if (response.data.resultCode === 0) {
+                    const {id, email, login} = response.data.data
+                    dispatch(setUserDataAC(id, email, login));
+                }
+            })
     }
 }
 

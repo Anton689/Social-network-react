@@ -8,11 +8,11 @@ import {NavLink} from 'react-router-dom';
 // }
 
 
-export const Header = ({ ...props }) => {
+export const Header = ({...props}) => {
     return (
         <header className={s.header}>
             <img
-                src='https://klike.net/uploads/posts/2020-04/1587719791_1.jpg'
+                src="https://klike.net/uploads/posts/2020-04/1587719791_1.jpg"
                 alt=""/>
 
             <div className={s.loginBlock}>

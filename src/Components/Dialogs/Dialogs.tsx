@@ -8,7 +8,7 @@ type dialogsPropsType = {
     message: Array<DataDialogsType>
     dialogs: Array<DataDialogsType>
     changeNewMessageTextBody: (body: string) => void
-    sendMessage:()=> void
+    sendMessage: () => void
     isAuth: boolean
 
 }

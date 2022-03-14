@@ -3,8 +3,9 @@ import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reduxStore';
 import {setUserProfileTc} from '../../redux/profileReducer';
-import {Navigate, useMatch, useParams} from 'react-router-dom';
 import {WithAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 
 export type MapStateToPropsType = {
@@ -12,27 +13,43 @@ export type MapStateToPropsType = {
 }
 
 type ProfileDispatchPropsType = {
-    // setUserProfile: (profile: number) => void
+    setUserProfileTc: (profile: number) => void
 }
 
-type MatchType= {
-    match: any
+type PathParamsType = {
+    userId: string
 }
 
-type ProfilePropsType = MapStateToPropsType & ProfileDispatchPropsType
+type PropsType = MapStateToPropsType & ProfileDispatchPropsType & RouteComponentProps<PathParamsType>
 
 
-class ProfileContainer extends React.Component<any, AppStateType> {
+class ProfileContainer extends React.Component<PropsType> {
+    constructor(props: PropsType) {
+        super(props);
+    }
 
-    componentDidMount() {
-     /*  let userId = this.props.match && typeof this.props.match.params.userId === 'number' ?
-           this.props.match.params.userId : '3'*/
+    refreshProfile() {
 
-        let userId = this.props.params['*'] ? this.props.params['*'] : '3'
+        let userId: number | null = +this.props.match.params.userId
+        if (!userId) {
+            userId = 3
+        }
 
         this.props.setUserProfileTc(userId)
 
     }
+
+    componentDidMount() {
+        this.refreshProfile()
+
+    }
+
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
             <div>
@@ -42,18 +59,15 @@ class ProfileContainer extends React.Component<any, AppStateType> {
     }
 }
 
-const ProfileURLMatch = (props: ProfilePropsType) => {
-    const match = useMatch('/profile/:userId/');
-    const params = useParams()
-    console.log(params)
-    return <ProfileContainer params={params} {...props}/>;
-}
-
-
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
     }
 }
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, ProfileDispatchPropsType, {}, AppStateType>(mapStateToProps, {setUserProfileTc}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)
 
-export default WithAuthRedirect(connect(mapStateToProps, {setUserProfileTc})(ProfileURLMatch))
+

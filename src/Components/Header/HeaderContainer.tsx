@@ -10,12 +10,13 @@ export type MapStateToPropsType = {
 
 }
 
-class HeaderContainer extends React.Component<any,any> {
+class HeaderContainer extends React.Component<any, any> {
 
     componentDidMount() {
 
         this.props.authTC()
     }
+
     render() {
 
         return <>
@@ -24,7 +25,7 @@ class HeaderContainer extends React.Component<any,any> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType=>{
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.login

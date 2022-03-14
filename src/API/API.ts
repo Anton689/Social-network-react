@@ -15,10 +15,10 @@ export const usersAPI = {
                 return response.data;
             });
     },
-    following(userId:number){
+    following(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
-    unfollowing(userId:number){
+    unfollowing(userId: number) {
         return instance.post(`follow/${userId}`)
     }
 }
