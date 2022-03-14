@@ -9,6 +9,7 @@ import {
     changeNewMessageTextCreator
 } from '../../redux/messagePageReducer';
 import {ActionsTypeProfile} from '../../redux/profileReducer';
+import { Navigate } from 'react-router-dom';
 
 type dialogsPropsType = {
     message: Array<DataDialogsType>
@@ -19,6 +20,7 @@ type dialogsPropsType = {
     //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
     changeNewMessageTextBody: (body: string) => void
     sendMessage:()=> void
+    isAuth: boolean
 
 }
 
@@ -39,6 +41,9 @@ export const Dialogs = (props: dialogsPropsType) => {
         //props.dispatch(changeNewMessageTextCreator(e.currentTarget.value));
 
     }
+
+    if(!props.isAuth) return <Navigate to={'/login'}/>
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
