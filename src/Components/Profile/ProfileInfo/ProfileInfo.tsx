@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import {ProfileStatus} from './ProfileStatus';
 
 type ProfileInfoType = {
     profile: any
@@ -20,6 +21,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile}/>
             </div>
+            <ProfileStatus status={'pormmtyiw'}/>
             <div>{props.fullname}</div>
             <div>{props.contacts}</div>
             <div>{props.aboutMe}</div>
