@@ -7,6 +7,8 @@ type ProfileInfoType = {
     fullname: string
     contacts: string
     aboutMe: string
+    status: string
+    updateStatus: (status: string) => void
 
 }
 
@@ -21,7 +23,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile}/>
             </div>
-            <ProfileStatus status={'pormmtyiw'}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             <div>{props.fullname}</div>
             <div>{props.contacts}</div>
             <div>{props.aboutMe}</div>
