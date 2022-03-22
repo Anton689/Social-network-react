@@ -1,14 +1,14 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {DataDialogsType} from '../../App';
+import {Field, Form, Formik} from 'formik';
 
 type dialogsPropsType = {
     message: Array<DataDialogsType>
     dialogs: Array<DataDialogsType>
-    changeNewMessageTextBody: (body: string) => void
-    sendMessage: () => void
+    sendMessage: (message: string) => void
     isAuth: boolean
 
 }
@@ -21,14 +21,9 @@ export const Dialogs = (props: dialogsPropsType) => {
     let dialogsElements = props.dialogs.map(dialogs => <DialogItem key={dialogs.id} name={dialogs.name}
                                                                    id={dialogs.id}/>)
 
-    const onClickHandler = () => {
-        props.sendMessage();
-    }
 
-    const newTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageTextBody(e.currentTarget.value)
-        //props.dispatch(changeNewMessageTextCreator(e.currentTarget.value));
-
+    const addNewMessage = (values: ValuesType) => {
+        props.sendMessage(values.message);
     }
 
     return (
@@ -42,11 +37,37 @@ export const Dialogs = (props: dialogsPropsType) => {
             </div>
 
             <div>
-                <textarea placeholder="Enter your message" onChange={newTextAreaHandler}/>
-            </div>
-            <div>
-                <button onClick={onClickHandler}>add</button>
+                <AddMessageForm addNewMessage={addNewMessage}/>
             </div>
         </div>
+    )
+}
+
+type ValuesType = {
+    message: string
+}
+
+type AddMessageFormType = {
+    addNewMessage: (values:ValuesType)=> void
+}
+
+export const AddMessageForm = (props: AddMessageFormType) => {
+
+    const onSubmitHandler = (values: ValuesType) => {
+        props.addNewMessage(values)
+    }
+
+    return (
+        <Formik
+            initialValues={{message: ''}}
+            onSubmit={onSubmitHandler}
+        >
+            <Form>
+                <Field name="message" as="textarea"/>
+                <button type="submit">
+                    Add
+                </button>
+            </Form>
+        </Formik>
     )
 }

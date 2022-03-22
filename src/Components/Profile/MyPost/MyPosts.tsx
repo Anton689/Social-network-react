@@ -1,29 +1,21 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css';
 import {Posts} from './Posts/Posts';
 import {postsDataType} from '../../../App';
+import {Field, Form, Formik} from 'formik';
 
 
 type postsPropsType = {
     postsName: Array<postsDataType>;
-    //addPost: () => void;
-    newPostText: string
-    //changeNewPostText: (newText: string) => void;
-    //dispatch: (action: ActionsTypeProfile | ActionsTypeMessagePage) => void;
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    addPost: (newPostText: string)=> void
 
 }
 
-
 export const MyPosts = (props: postsPropsType) => {
 
-    const onAddPost = () => {
-        props.addPost()
-        //props.dispatch(addPostActionCreator())
-    }
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
+
+    const addNewPostText = (value:ValuesType)=> {
+        props.addPost(value.newPostText)
     }
 
     return (
@@ -31,16 +23,46 @@ export const MyPosts = (props: postsPropsType) => {
             <div>
                 <h3 className={s.postsPadding}>My Posts</h3>
                 <div>
-                    <div>
-                        <textarea onChange={onPostChange} value={props.newPostText}/>
-                    </div>
-                    <button onClick={onAddPost}>Add post</button>
-                    <button>Remove</button>
+                    <AddPostForm addNewPostText={addNewPostText}/>
                 </div>
                 <div className={s.posts}>
                     {props.postsName.map(posts => <Posts message={posts.message} likeCount={posts.likeCount}/>)}
                 </div>
             </div>
         </div>
+    )
+}
+
+type ValuesType = {
+    newPostText: string
+}
+
+type AddPostFormType = {
+    addNewPostText: (values:ValuesType)=> void
+}
+
+export const AddPostForm = (props: AddPostFormType) => {
+
+    const onSubmitHandler = (values: ValuesType) => {
+        props.addNewPostText(values)
+    }
+
+    return (
+        <Formik
+            initialValues={{newPostText: ''}}
+            onSubmit={onSubmitHandler}
+        >
+            <Form>
+                <Field name="newPostText" as="textarea"/>
+                <div>
+                <button type="submit">
+                    Add post
+                </button>
+                <button type="button">
+                    Remove
+                </button>
+                </div>
+            </Form>
+        </Formik>
     )
 }

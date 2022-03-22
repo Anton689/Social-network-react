@@ -2,28 +2,20 @@ import {messagesType} from './store';
 import {ActionsTypeProfile} from './profileReducer';
 
 const ADD_NEW_MASSAGE = 'ADD-NEW-MASSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 
 export type AddNewMessageCreatorType = ReturnType<typeof addNewMessageCreator>
-export type ChangeNewMessageTextCreatorType = ReturnType<typeof changeNewMessageTextCreator>
 
-export const addNewMessageCreator = () => ({type: ADD_NEW_MASSAGE}) as const;
-export const changeNewMessageTextCreator = (newTextMessage: string) => ({
-    type: CHANGE_NEW_MESSAGE_TEXT,
-    newTextMessage: newTextMessage
-}) as const;
+export const addNewMessageCreator = (message: string) => ({type: ADD_NEW_MASSAGE, message}) as const;
 
 export type ActionsTypeMessagePage =
     | AddNewMessageCreatorType
-    | ChangeNewMessageTextCreatorType;
+
 
 export type InitialStateType = {
-    newMessageText: string;
     message: Array<messagesType>
 }
 
 let initialState: InitialStateType = {
-    newMessageText: '',
     message: [
         {id: 1, message: 'Privet'},
         {id: 2, message: 'Hi'},
@@ -34,22 +26,14 @@ let initialState: InitialStateType = {
     ],
 }
 
-//type initialStateType = typeof initialState
-
 const dialogPageReducer = (state = initialState, action: ActionsTypeMessagePage | ActionsTypeProfile): InitialStateType => {
 
     switch (action.type) {
         case ADD_NEW_MASSAGE:
-            let newMessageText = state.newMessageText;
+            let newMessageText = action.message;
             return {
                 ...state,
-                newMessageText: '',
                 message: [...state.message, {id: 7, message: newMessageText}]
-            }
-        case CHANGE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newTextMessage
             }
         default:
             return state;
