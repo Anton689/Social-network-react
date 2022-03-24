@@ -2,7 +2,8 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import {Posts} from './Posts/Posts';
 import {postsDataType} from '../../../App';
-import {Field, Form, Formik} from 'formik';
+import {Field, Form, Formik, useFormik} from 'formik';
+import {log} from 'util';
 
 
 type postsPropsType = {
@@ -37,32 +38,50 @@ type ValuesType = {
     newPostText: string
 }
 
+
+type FormikErrorsType = {
+    newPostText?: string
+}
+
 type AddPostFormType = {
     addNewPostText: (values:ValuesType)=> void
 }
 
+
+
 export const AddPostForm = (props: AddPostFormType) => {
 
-    const onSubmitHandler = (values: ValuesType) => {
-        props.addNewPostText(values)
-    }
+    let formik = useFormik({
+        initialValues: {
+            newPostText: ''
+        },
+        validate: (value)=> {
+            let error: FormikErrorsType = {};
+
+            if (!value.newPostText) {
+                error.newPostText = 'Required';
+                console.log(error)
+            } else if (value.newPostText?.length > 5) {
+                error.newPostText = 'Invalid text';
+
+            }
+
+            return error
+        },
+        onSubmit: (values: ValuesType) => {
+            props.addNewPostText(values)
+        }
+    })
 
     return (
-        <Formik
-            initialValues={{newPostText: ''}}
-            onSubmit={onSubmitHandler}
-        >
-            <Form>
-                <Field name="newPostText" as="textarea"/>
-                <div>
-                <button type="submit">
-                    Add post
-                </button>
-                <button type="button">
-                    Remove
-                </button>
-                </div>
-            </Form>
-        </Formik>
+        <div>
+            <form onSubmit={formik.handleSubmit}>
+                    <textarea {...formik.getFieldProps('newPostText')}/>
+                    {formik.errors.newPostText && formik.touched.newPostText && <div>{formik.errors.newPostText}</div>}
+                    <button type="submit">Add post</button>
+                    <button type="button">Remove</button>
+            </form>
+
+        </div>
     )
 }
