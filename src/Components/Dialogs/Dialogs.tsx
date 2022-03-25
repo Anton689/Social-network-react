@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {DataDialogsType} from '../../App';
-import {Field, Form, Formik} from 'formik';
+import {Form, ValuesType} from '../../Forms/Form';
 
 type dialogsPropsType = {
     message: Array<DataDialogsType>
@@ -23,7 +23,7 @@ export const Dialogs = (props: dialogsPropsType) => {
 
 
     const addNewMessage = (values: ValuesType) => {
-        props.sendMessage(values.message);
+        props.sendMessage(values.newText as string);
     }
 
     return (
@@ -37,37 +37,9 @@ export const Dialogs = (props: dialogsPropsType) => {
             </div>
 
             <div>
-                <AddMessageForm addNewMessage={addNewMessage}/>
+                <Form callback={addNewMessage} removeButton={true}/>
             </div>
         </div>
     )
 }
 
-type ValuesType = {
-    message: string
-}
-
-type AddMessageFormType = {
-    addNewMessage: (values:ValuesType)=> void
-}
-
-export const AddMessageForm = (props: AddMessageFormType) => {
-
-    const onSubmitHandler = (values: ValuesType) => {
-        props.addNewMessage(values)
-    }
-
-    return (
-        <Formik
-            initialValues={{message: ''}}
-            onSubmit={onSubmitHandler}
-        >
-            <Form>
-                <Field name="message" as="textarea"/>
-                <button type="submit">
-                    Add
-                </button>
-            </Form>
-        </Formik>
-    )
-}

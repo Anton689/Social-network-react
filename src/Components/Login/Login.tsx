@@ -1,22 +1,5 @@
-import {Field, Form, Formik, FormikHelpers} from 'formik';
+import {useFormik} from 'formik';
 import React from 'react';
-
-// export const LoginForm = () => {
-//     return (
-//         <form>
-//             <div>
-//                 <input placeholder={'Login'}/>
-//             </div>
-//             <div>
-//                 <input placeholder={'Password'}/>
-//             </div>
-//             <input type="checkbox"/> remember me
-//             <div>
-//                 <button>Login</button>
-//             </div>
-//         </form>
-//     )
-// };
 
 export const Login = () => {
     return <div>
@@ -26,50 +9,77 @@ export const Login = () => {
 };
 
 type ValuesType = {
-    login: string;
-    password: string;
-
+    login?: string;
+    password?: string;
+    rememberMe?: boolean
 }
 
+type FormikErrorsType = {
+    login?: string;
+    password?: string;
+    rememberMe?: boolean
+}
 
 export const LoginForm = () => {
+    let formik = useFormik({
+        initialValues: {
+            login: '',
+            password: '',
+            rememberMe: false
+        },
+        validate: (value) => {
+            const errors: FormikErrorsType = {};
+            if (!value.login) {
+                errors.login = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.login)) {
+                errors.login = 'Invalid email address';
+            }
 
-    const validateHandler = (values: any) => {
-        const errors = {};
-        return errors;
-    }
+            if (!value.password) {
+                errors.password = 'Required password';
+            } else if (value.password.length < 3) {
+                errors.password = 'Password less 3 chars'
+            }
+            return errors;
+        },
+        onSubmit: (values: ValuesType) => {
+            setTimeout(() => {
+                alert(JSON.stringify(values));
+            }, 400);
+        }
+    })
 
-    const onSubmitHandler = (values: ValuesType, {setSubmitting}: FormikHelpers<ValuesType>)=> {
-        setTimeout(() => {
-            alert(JSON.stringify(values));
-            setSubmitting(false);
-        }, 400);
-    }
+    return (
+        <div>
+            <form onSubmit={formik.handleSubmit}>
+                Email
+                <div>
+                    <input {...formik.getFieldProps('login')}
+                           onBlur={formik.handleBlur}/>
+                </div>
+                {formik.errors.login
+                    && formik.touched.login
+                    && <div style={{color: 'red'}}>{formik.errors.login}</div>}
+                Password
+                <div>
+                    <input type="password" {...formik.getFieldProps('password')}
+                           onBlur={formik.handleBlur}/>
+                </div>
+                {formik.errors.password
+                    && formik.touched.password
+                    && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+                <div>
+                    <input type="checkbox" {...formik.getFieldProps('rememberMe')}
+                           onBlur={formik.handleBlur}
+                           checked={formik.values.rememberMe}/> Remember me
+                </div>
+                <div>
+                    <button type="submit">Log</button>
+                </div>
+            </form>
 
-    return <div>
-        <Formik
-            initialValues={{login: '', password: ''}}
-            validate={validateHandler}
-            onSubmit={onSubmitHandler}
-        >
-            {({isSubmitting}) => (
-                <Form>
-                    <div>
-                    <Field type="login" name="login" placeholder='login'/>
-                    </div>
-                    <div>
-                    <Field type="password" name="password" placeholder='password'/>
-                    </div>
-                    <div>
-                        <Field type="checkbox" name="checkbox" /> Remember me
-                    </div>
-                    <div>
-                    <button type="submit" disabled={isSubmitting}>Submit</button>
-                    </div>
-                </Form>
-            )}
-        </Formik>
-    </div>
-};
+        </div>
+    )
+}
 
 
