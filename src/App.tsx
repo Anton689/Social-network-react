@@ -4,14 +4,12 @@ import {Navbar} from './Components/Navbar/Navbar';
 import {News} from './Components/News/News';
 import {Music} from './Components/Music/Music';
 import {Settings} from './Components/Settings/Settings';
-
 import UsersContainer from './Components/Users/UsersContainer';
-
 import HeaderContainer from './Components/Header/HeaderContainer';
-import {Login} from './Components/Login/Login';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import Login from './Components/Login/Login';
 
 
 export type DataDialogsType = {

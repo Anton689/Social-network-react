@@ -1,38 +1,56 @@
 import {useFormik} from 'formik';
 import React from 'react';
+import {connect} from 'react-redux';
+import {login, logout} from '../Header/auth-reducer';
+import {TypeForLogin} from '../../API/ProfileAPI';
+import {Redirect} from 'react-router-dom';
+import {AppStateType} from '../../redux/reduxStore';
+import App from '../../App';
 
-export const Login = () => {
+
+type PropsType = {
+    login: (data: TypeForLogin) => void;
+    isAuth?: boolean
+}
+
+const Login = (props: PropsType) => {
+
+    if(props.isAuth){
+        return <Redirect to={'/profile'}/>
+    }
+
     return <div>
         <h1>Login</h1>
-        <LoginForm/>
+        <LoginForm login={props.login}/>
     </div>
 };
 
 type ValuesType = {
-    login?: string;
-    password?: string;
-    rememberMe?: boolean
+    email: string;
+    password: string;
+    rememberMe: boolean;
+
 }
 
 type FormikErrorsType = {
-    login?: string;
+    email?: string;
     password?: string;
     rememberMe?: boolean
 }
 
-export const LoginForm = () => {
+const LoginForm = (props: PropsType) => {
     let formik = useFormik({
         initialValues: {
-            login: '',
+            email: '',
             password: '',
             rememberMe: false
         },
         validate: (value) => {
             const errors: FormikErrorsType = {};
-            if (!value.login) {
-                errors.login = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.login)) {
-                errors.login = 'Invalid email address';
+            if (!value.email) {
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.email)) {
+                errors.email = 'Invalid email address';
             }
 
             if (!value.password) {
@@ -43,9 +61,12 @@ export const LoginForm = () => {
             return errors;
         },
         onSubmit: (values: ValuesType) => {
-            setTimeout(() => {
-                alert(JSON.stringify(values));
-            }, 400);
+            // setTimeout(() => {
+            //     alert(JSON.stringify(values));
+            // }, 400);
+            const params = {email: values.email, password: values.password, rememberMe: values.rememberMe}
+            props.login(params)
+
         }
     })
 
@@ -54,16 +75,18 @@ export const LoginForm = () => {
             <form onSubmit={formik.handleSubmit}>
                 Email
                 <div>
-                    <input {...formik.getFieldProps('login')}
-                           onBlur={formik.handleBlur}/>
+                    <input {...formik.getFieldProps('email')}
+                           onBlur={formik.handleBlur}
+                           placeholder={'email'}/>
                 </div>
-                {formik.errors.login
-                    && formik.touched.login
-                    && <div style={{color: 'red'}}>{formik.errors.login}</div>}
+                {formik.errors.email
+                    && formik.touched.email
+                    && <div style={{color: 'red'}}>{formik.errors.email}</div>}
                 Password
                 <div>
                     <input type="password" {...formik.getFieldProps('password')}
-                           onBlur={formik.handleBlur}/>
+                           onBlur={formik.handleBlur}
+                           placeholder={'password'}/>
                 </div>
                 {formik.errors.password
                     && formik.touched.password
@@ -81,5 +104,20 @@ export const LoginForm = () => {
         </div>
     )
 }
+
+type MapStateToProps = {
+    isAuth:boolean
+}
+
+const mapStateToProps = (state: AppStateType): MapStateToProps=> {
+    return {
+        isAuth: state.auth.isAuth
+    }
+
+}
+
+export default connect(mapStateToProps, {login})(Login)
+
+
 
 

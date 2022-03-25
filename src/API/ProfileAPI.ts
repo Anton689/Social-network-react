@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 const instance = axios.create({
     withCredentials: true,
@@ -17,5 +17,28 @@ export const profileAPI = {
     },
     updateStatus(status: any) {
         return instance.put(`profile/status`, {status})
+    },
+    login(data: TypeForLogin){
+        return instance.post<TypeForLogin, AxiosResponse<ResponseTypeForLogin>>('auth/login', data)
+    },
+    logOut(){
+        return instance.delete<AxiosResponse<{resultCode: number, messages: string[], data:{}}>>('auth/login')
     }
+}
+
+//response type for login
+
+export type ResponseTypeForLogin = {
+    resultCode: number
+    messages: string
+    data: {userId: number}
+}
+
+//type for login
+
+export type TypeForLogin ={
+    email: string
+    password: string
+    rememberMe:boolean
+    captcha?: string
 }

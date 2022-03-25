@@ -1,11 +1,14 @@
 import {Dispatch} from 'redux';
 import {headerAPI} from '../../API/HeaderAPI';
+import {profileAPI, TypeForLogin} from '../../API/ProfileAPI';
+import {ThunkDispatch} from 'redux-thunk';
+import {AppStateType} from '../../redux/reduxStore';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-export const setUserDataAC = (id: number, email: string, login: string) => ({
+export const setUserDataAC = (id: number, email: string, login: string, isAuth: boolean) => ({
     type: SET_USER_DATA,
-    data: {id, email, login}
+    data: {id, email, login, isAuth}
 }) as const;
 
 // id: number, email: string, login: string
@@ -30,29 +33,42 @@ let initialState: initialStateType = {
 }
 
 export const authReducer = (state = initialState, action: ActionsTypeAuth): initialStateType => {
-
     switch (action.type) {
         case SET_USER_DATA:
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         default:
             return state;
     }
 }
 
-export const authTC = () => {
-    return (dispatch: Dispatch) => {
-
+export const authTC = () => (dispatch: Dispatch) => {
         headerAPI.getUserData()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     const {id, email, login} = response.data.data
-                    dispatch(setUserDataAC(id, email, login));
+                    dispatch(setUserDataAC(id, email, login, true));
                 }
             })
     }
+
+export const login = (data: TypeForLogin) => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>)=> {
+    profileAPI.login(data)
+        .then(res=>{
+            if(res.data.resultCode === 0){
+                dispatch(authTC())
+            }
+        })
+}
+
+export const logout = () => (dispatch: any)=> {
+    profileAPI.logOut()
+        .then(res=>{
+            if(res.data.data.resultCode === 0){
+                dispatch(setUserDataAC(0, '', '', false))
+            }
+        })
 }
 

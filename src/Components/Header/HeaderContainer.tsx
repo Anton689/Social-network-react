@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from './Header';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/reduxStore';
-import {authTC} from './auth-reducer';
+import {authTC, logout} from './auth-reducer';
 
 export type MapStateToPropsType = {
     isAuth: boolean
@@ -32,4 +32,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {authTC})(HeaderContainer)
+export default connect(mapStateToProps, {authTC, logout})(HeaderContainer)
