@@ -45,31 +45,32 @@ export const authReducer = (state = initialState, action: ActionsTypeAuth): init
 }
 
 export const authTC = () => (dispatch: Dispatch) => {
-        headerAPI.getUserData()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    const {id, email, login} = response.data.data
-                    dispatch(setUserDataAC(id, email, login, true));
-                }
-            })
-    }
+    headerAPI.getUserData()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                const {id, email, login} = response.data.data
+                dispatch(setUserDataAC(id, email, login, true));
+            }
+        })
+}
 
-export const login = (data: TypeForLogin, setStatus: any) => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>)=> {
+export const login = (data: TypeForLogin, setStatus: any) => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>) => {
     profileAPI.login(data)
-        .then(res=>{
-            if(res.data.resultCode === 0){
+        .then(res => {
+            if (res.data.resultCode === 0) {
                 dispatch(authTC())
-            }else{
+            } else {
                 setStatus(res.data.messages)
             }
         })
 }
 
-export const logout = () => (dispatch: any)=> {
+export const logout = () => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>) => {
     profileAPI.logOut()
-        .then(res=>{
-            if(res.data.data.resultCode === 0){
+        .then(res => {
+            if (res.data.resultCode === 0) {
                 dispatch(setUserDataAC(0, '', '', false))
+                debugger
             }
         })
 }

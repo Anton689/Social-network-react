@@ -22,7 +22,7 @@ export const profileAPI = {
         return instance.post<TypeForLogin, AxiosResponse<ResponseTypeForLogin>>('auth/login', data)
     },
     logOut(){
-        return instance.delete<AxiosResponse<{resultCode: number, messages: string[], data:{}}>>('auth/login')
+        return instance.delete<ResponseTypeForLogin>('auth/login')
     }
 }
 
