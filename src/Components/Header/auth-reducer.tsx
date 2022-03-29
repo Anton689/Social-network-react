@@ -54,11 +54,13 @@ export const authTC = () => (dispatch: Dispatch) => {
             })
     }
 
-export const login = (data: TypeForLogin) => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>)=> {
+export const login = (data: TypeForLogin, setStatus: any) => (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypeAuth>)=> {
     profileAPI.login(data)
         .then(res=>{
             if(res.data.resultCode === 0){
                 dispatch(authTC())
+            }else{
+                setStatus(res.data.messages)
             }
         })
 }

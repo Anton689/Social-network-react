@@ -3,7 +3,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {AppStateType, store} from './redux/reduxStore';
+import {store} from './redux/reduxStore';
 import {Provider} from 'react-redux';
 
 // const renderEntireTree = (_store: AppStateType) =>

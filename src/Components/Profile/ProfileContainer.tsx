@@ -11,6 +11,8 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 export type MapStateToPropsType = {
     profile: any
     status: string
+    loginedId: number
+    isAuth: boolean
 }
 
 type ProfileDispatchPropsType = {
@@ -35,7 +37,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
         let userId: number | null = +this.props.match.params.userId
         if (!userId) {
-            userId = 3
+            userId = this.props.loginedId
         }
 
         this.props.setUserProfileTc(userId)
@@ -58,7 +60,9 @@ class ProfileContainer extends React.Component<PropsType> {
     render() {
         return (
             <div>
-                <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatusTC}/>
+                <Profile profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatus={this.props.updateStatusTC}/>
             </div>
         )
     }
@@ -67,7 +71,9 @@ class ProfileContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        loginedId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 export default compose<React.ComponentType>(

@@ -1,15 +1,15 @@
 import {useFormik} from 'formik';
 import React from 'react';
-import {connect} from 'react-redux';
-import {login, logout} from '../Header/auth-reducer';
+import {login} from '../Header/auth-reducer';
 import {TypeForLogin} from '../../API/ProfileAPI';
 import {Redirect} from 'react-router-dom';
+import styleLogin from './Login.module.css';
 import {AppStateType} from '../../redux/reduxStore';
-import App from '../../App';
+import { connect } from 'react-redux';
 
 
 type PropsType = {
-    login: (data: TypeForLogin) => void;
+    login: (data: TypeForLogin, status: any) => void;
     isAuth?: boolean
 }
 
@@ -60,12 +60,12 @@ const LoginForm = (props: PropsType) => {
             }
             return errors;
         },
-        onSubmit: (values: ValuesType) => {
+        onSubmit: (values: ValuesType,status ) => {
             // setTimeout(() => {
             //     alert(JSON.stringify(values));
             // }, 400);
             const params = {email: values.email, password: values.password, rememberMe: values.rememberMe}
-            props.login(params)
+            props.login(params, status.setStatus)
 
         }
     })
@@ -95,6 +95,9 @@ const LoginForm = (props: PropsType) => {
                     <input type="checkbox" {...formik.getFieldProps('rememberMe')}
                            onBlur={formik.handleBlur}
                            checked={formik.values.rememberMe}/> Remember me
+                </div>
+                <div className={styleLogin.statusMessage}>
+                    {formik.status}
                 </div>
                 <div>
                     <button type="submit">Log</button>
