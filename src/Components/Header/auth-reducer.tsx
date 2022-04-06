@@ -45,7 +45,7 @@ export const authReducer = (state = initialState, action: ActionsTypeAuth): init
 }
 
 export const authTC = () => (dispatch: Dispatch) => {
-    headerAPI.getUserData()
+    return headerAPI.getUserData()
         .then(response => {
             if (response.data.resultCode === 0) {
                 const {id, email, login} = response.data.data
@@ -70,7 +70,6 @@ export const logout = () => (dispatch: ThunkDispatch<AppStateType, unknown, Acti
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setUserDataAC(0, '', '', false))
-                debugger
             }
         })
 }
