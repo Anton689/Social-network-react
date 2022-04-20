@@ -11,6 +11,14 @@ import {
 } from '../../redux/usersReducer';
 import {Users} from './Users';
 import {Preloader} from '../Common/preloader/Preloader';
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from '../../redux/users-selectors';
 
 export type MapStateToPropsType = {
     users: InitialStateType
@@ -32,7 +40,7 @@ export type DispatchPropsType = {
     getUsersTC: Function
 }
 
-console.log('asd')
+
 
 export type UsersPropsType = MapStateToPropsType & DispatchPropsType
 
@@ -75,14 +83,26 @@ export class UsersAPIComponent extends React.Component<UsersPropsType, AppStateT
     }
 }
 
+// const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+//     return {
+//         users: state.usersPage,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//
+//     }
+// }
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        users: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
 
     }
 }

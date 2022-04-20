@@ -116,9 +116,7 @@ const mapStateToProps = (state: AppStateType): MapStateToProps=> {
     return {
         isAuth: state.auth.isAuth
     }
-
 }
-
 export default connect(mapStateToProps, {login})(Login)
 
 
